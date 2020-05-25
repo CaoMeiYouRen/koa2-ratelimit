@@ -1,6 +1,16 @@
 export * from './RateLimit';
-export * from './MemoryStore';
-export * from './SequelizeStore';
-export * from './MongodbStore';
-export * from './RedisStore';
-export * from './Store';
+import MemoryStore from './MemoryStore';
+import SequelizeStore from './SequelizeStore';
+import MongodbStore from './MongodbStore';
+import RedisStore from './RedisStore';
+import Store from './Store';
+
+export default {
+    Stores: {
+        Memory: MemoryStore,
+        Sequelize: SequelizeStore,
+        Mongodb: MongodbStore,
+        Redis: RedisStore,
+        Store,
+    },
+};
