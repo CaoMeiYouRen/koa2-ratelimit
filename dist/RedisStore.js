@@ -33,8 +33,7 @@ class RedisStore extends Store_1.default {
 * @param {*} weight
 */
     async _hit(key, options, weight) {
-        let result = await this.client.multi().pttl(key).exec();
-        console.log(result);
+        let [result] = await this.client.multi().pttl(key).exec();
         let [counter, dateEnd] = result;
         if (counter === null) {
             counter = weight;
@@ -45,6 +44,10 @@ class RedisStore extends Store_1.default {
         else {
             counter = await this.client.incrby(key, weight);
         }
+        console.log({
+            counter,
+            dateEnd,
+        });
         return {
             counter,
             dateEnd,

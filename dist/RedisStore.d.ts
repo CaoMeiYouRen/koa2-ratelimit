@@ -30,7 +30,7 @@ declare class RedisStore extends Store {
     _hit(key: any, options: {
         interval: number;
     }, weight: any): Promise<{
-        counter: any;
+        counter: Error | null;
         dateEnd: any;
     }>;
     /**
@@ -42,7 +42,7 @@ declare class RedisStore extends Store {
 * @param {*} weight
 */
     incr(key: any, options: any, weight: any): Promise<{
-        counter: any;
+        counter: Error | null;
         dateEnd: any;
     }>;
     /**
