@@ -1,9 +1,10 @@
-export * from './RateLimit';
+import RateLimit from './RateLimit';
 import MemoryStore from './MemoryStore';
 import SequelizeStore from './SequelizeStore';
 import MongodbStore from './MongodbStore';
 import RedisStore from './RedisStore';
 import Store from './Store';
+export { RateLimit };
 declare const _default: {
     Stores: {
         Memory: typeof MemoryStore;
