@@ -5,13 +5,10 @@ import MongodbStore from './MongodbStore';
 import RedisStore from './RedisStore';
 import Store from './Store';
 export { RateLimit };
-declare const _default: {
-    Stores: {
-        Memory: typeof MemoryStore;
-        Sequelize: typeof SequelizeStore;
-        Mongodb: typeof MongodbStore;
-        Redis: typeof RedisStore;
-        Store: typeof Store;
-    };
+export declare const Stores: {
+    Memory: typeof MemoryStore;
+    Sequelize: typeof SequelizeStore;
+    Mongodb: typeof MongodbStore;
+    Redis: typeof RedisStore;
+    Store: typeof Store;
 };
-export default _default;

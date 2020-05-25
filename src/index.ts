@@ -6,12 +6,10 @@ import RedisStore from './RedisStore';
 import Store from './Store';
 
 export { RateLimit }
-export default {
-    Stores: {
-        Memory: MemoryStore,
-        Sequelize: SequelizeStore,
-        Mongodb: MongodbStore,
-        Redis: RedisStore,
-        Store,
-    },
-};
+export const Stores = {
+    Memory: MemoryStore,
+    Sequelize: SequelizeStore,
+    Mongodb: MongodbStore,
+    Redis: RedisStore,
+    Store,
+}

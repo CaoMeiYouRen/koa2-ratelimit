@@ -8,13 +8,11 @@ const SequelizeStore_1 = tslib_1.__importDefault(require("./SequelizeStore"));
 const MongodbStore_1 = tslib_1.__importDefault(require("./MongodbStore"));
 const RedisStore_1 = tslib_1.__importDefault(require("./RedisStore"));
 const Store_1 = tslib_1.__importDefault(require("./Store"));
-exports.default = {
-    Stores: {
-        Memory: MemoryStore_1.default,
-        Sequelize: SequelizeStore_1.default,
-        Mongodb: MongodbStore_1.default,
-        Redis: RedisStore_1.default,
-        Store: Store_1.default,
-    },
+exports.Stores = {
+    Memory: MemoryStore_1.default,
+    Sequelize: SequelizeStore_1.default,
+    Mongodb: MongodbStore_1.default,
+    Redis: RedisStore_1.default,
+    Store: Store_1.default,
 };
 //# sourceMappingURL=index.js.map
