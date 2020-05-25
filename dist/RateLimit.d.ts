@@ -1,13 +1,19 @@
 import MemoryStore from './MemoryStore';
 import Koa = require('koa');
+declare class TimeType {
+    ms?: number;
+    sec?: number;
+    min?: number;
+    hour?: number;
+    day?: number;
+    week?: number;
+    month?: number;
+    year?: number;
+}
 declare class Options {
-    interval?: {
-        min: number;
-    };
+    interval?: TimeType;
     delayAfter?: number;
-    timeWait?: {
-        sec: number;
-    };
+    timeWait?: TimeType;
     max?: number;
     message?: string;
     statusCode?: number;

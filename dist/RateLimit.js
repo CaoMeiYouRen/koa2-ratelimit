@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const Store_1 = tslib_1.__importDefault(require("./Store"));
 const MemoryStore_1 = tslib_1.__importDefault(require("./MemoryStore"));
+class TimeType {
+}
 class Options {
 }
 let defaultOptions = {

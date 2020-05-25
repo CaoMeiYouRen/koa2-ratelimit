@@ -1,14 +1,20 @@
 import Store from './Store';
 import MemoryStore from './MemoryStore'
 import Koa = require('koa')
+class TimeType {
+    ms?: number
+    sec?: number
+    min?: number
+    hour?: number
+    day?: number
+    week?: number
+    month?: number
+    year?: number
+}
 class Options {
-    interval?: {
-        min: number;
-    };
+    interval?: TimeType;
     delayAfter?: number;
-    timeWait?: {
-        sec: number;
-    };
+    timeWait?: TimeType;
     max?: number;
     message?: string;
     statusCode?: number;
@@ -24,7 +30,7 @@ class Options {
     weight?: any
     whitelist?: any[];
 }
-let defaultOptions = {
+let defaultOptions: Options = {
     // window, delay, and max apply per-key unless global is set to true
     interval: { min: 1 }, // milliseconds - how long to keep records of requests in memory
     delayAfter: 0, // how many requests to allow through before starting to delay responses
@@ -51,7 +57,7 @@ let defaultOptions = {
 };
 
 const TimeKeys = ['ms', 'sec', 'min', 'hour', 'day', 'week', 'month', 'year'];
-const Times = {
+const Times: TimeType = {
     ms: 1,
     sec: 1000,
     min: 60000,
