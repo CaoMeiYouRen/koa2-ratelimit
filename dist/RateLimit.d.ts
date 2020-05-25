@@ -1,3 +1,4 @@
+import Store from './Store';
 import MemoryStore from './MemoryStore';
 import Koa = require('koa');
 declare class TimeType {
@@ -11,9 +12,9 @@ declare class TimeType {
     year?: number;
 }
 declare class Options {
-    interval?: TimeType;
+    interval?: number | TimeType;
     delayAfter?: number;
-    timeWait?: TimeType;
+    timeWait?: number | TimeType;
     max?: number;
     message?: string;
     statusCode?: number;
@@ -30,12 +31,10 @@ declare class Options {
     whitelist?: any[];
 }
 declare class RateLimit {
-    options: any;
-    store: any;
+    options: Options;
+    store: Store;
     constructor(options: Options);
-    static timeToMs(time: {
-        [x: string]: number;
-    }): number;
+    static timeToMs(time?: number | TimeType): number | undefined;
     keyGenerator(ctx: Koa.Context): Promise<any>;
     weight(ctx: Koa.Context): Promise<any>;
     skip(ctx: Koa.Context): Promise<any>;
@@ -44,7 +43,7 @@ declare class RateLimit {
     onLimitReached(ctx: Koa.Context): Promise<void>;
     get middleware(): (ctx: Koa.Context, next: Koa.Next) => Promise<any>;
     _rateLimit(ctx: Koa.Context, next: Koa.Next): Promise<any>;
-    _isWhitelisted(key: string): any;
+    _isWhitelisted(key: string): boolean | undefined;
     wait(ms: number): Promise<unknown>;
 }
 declare const _default: {

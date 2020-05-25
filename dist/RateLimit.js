@@ -46,7 +46,9 @@ class RateLimit {
         this.options.interval = RateLimit.timeToMs(this.options.interval);
         this.options.timeWait = RateLimit.timeToMs(this.options.timeWait);
         // store to use for persisting rate limit data
-        this.store = this.options.store;
+        if (this.options.store) {
+            this.store = this.options.store;
+        }
         // ensure that the store extends Store class
         if (!(this.store instanceof Store_1.default)) {
             throw new Error('The store is not valid.');
@@ -112,10 +114,10 @@ class RateLimit {
             this.options.handler(ctx);
         }
         else {
-            ctx.status = this.options.statusCode;
+            ctx.status = this.options.statusCode || 429;
             ctx.body = { message: this.options.message };
             if (this.options.headers) {
-                ctx.set('Retry-After', Math.ceil(this.options.interval / 1000).toString());
+                ctx.set('Retry-After', Math.ceil(Number(this.options.interval) / 1000).toString());
             }
         }
     }
@@ -149,11 +151,11 @@ class RateLimit {
         ctx.state.rateLimit = {
             limit: this.options.max,
             current: counter,
-            remaining: Math.max(this.options.max - counter, 0),
+            remaining: Math.max(Number(this.options.max) - counter, 0),
             reset: Math.ceil(reset / 1000),
         };
         if (this.options.headers) {
-            ctx.set('X-RateLimit-Limit', this.options.max);
+            ctx.set('X-RateLimit-Limit', String(this.options.max));
             ctx.set('X-RateLimit-Remaining', ctx.state.rateLimit.remaining);
             ctx.set('X-RateLimit-Reset', ctx.state.rateLimit.reset);
         }
@@ -169,7 +171,7 @@ class RateLimit {
             });
         }
         if (this.options.delayAfter && this.options.timeWait && counter > this.options.delayAfter) {
-            const delay = (counter - this.options.delayAfter) * this.options.timeWait;
+            const delay = (counter - this.options.delayAfter) * Number(this.options.timeWait);
             await this.wait(delay);
             return next();
         }
@@ -180,7 +182,7 @@ class RateLimit {
         if (arr.length > 0) {
             const ip = arr[1];
             const { whitelist } = this.options;
-            return whitelist.includes(ip);
+            return whitelist === null || whitelist === void 0 ? void 0 : whitelist.includes(ip);
         }
         return false;
     }
