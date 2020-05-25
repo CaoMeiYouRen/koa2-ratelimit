@@ -25,6 +25,31 @@ class RedisStore extends Store_1.default {
         super();
         this.client = new Redis(config);
     }
+    _processReplies(replies) {
+        // in ioredis, every reply consists of an array [err, value].
+        // We don't need the error here, and if we aren't dealing with an array,
+        // nothing is changed.
+        return replies.map(function (val) {
+            if (Array.isArray(val) && val.length >= 2) {
+                return val[1];
+            }
+            return val;
+        });
+    }
+    ;
+    setExpire(expiryMs, replies, rdskey) {
+        // if this is new or has no expiry
+        expiryMs = Math.round(1000 * expiryMs);
+        if (replies[0] === 1 || replies[1] === -1) {
+            // then expire it after the timeout
+            this.client.pexpire(rdskey, expiryMs);
+            return expiryMs;
+        }
+        else {
+            return replies[1];
+        }
+    }
+    ;
     /**
 * _hit
 * @access private
@@ -33,13 +58,16 @@ class RedisStore extends Store_1.default {
 * @param {*} weight
 */
     async _hit(key, options, weight) {
-        let [result] = await this.client.multi().pttl(key).exec();
-        let [counter, dateEnd] = result;
+        let replies = await this.client.multi().pttl(key).exec();
+        let [counter, dateEnd] = replies;
         if (counter === null) {
             counter = weight;
             dateEnd = Date.now() + options.interval;
             const seconds = Math.ceil(options.interval / 1000);
-            await this.client.setex(key, seconds, counter);
+            replies = this._processReplies(replies);
+            var ttl = this.setExpire(seconds, replies, key);
+            counter = ttl;
+            // await this.client.setex(key, seconds, counter as any);
         }
         else {
             counter = await this.client.incrby(key, weight);

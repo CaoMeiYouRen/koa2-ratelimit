@@ -20,6 +20,8 @@ import Store from './Store';
 declare class RedisStore extends Store {
     client: Redis.Redis;
     constructor(config: Redis.RedisOptions);
+    _processReplies(replies: any[]): any[];
+    setExpire(expiryMs: number, replies: any[], rdskey: Redis.KeyType): any;
     /**
 * _hit
 * @access private
@@ -30,8 +32,8 @@ declare class RedisStore extends Store {
     _hit(key: any, options: {
         interval: number;
     }, weight: any): Promise<{
-        counter: Error | null;
-        dateEnd: any;
+        counter: [Error | null, any];
+        dateEnd: [Error | null, any];
     }>;
     /**
 * incr
@@ -42,8 +44,8 @@ declare class RedisStore extends Store {
 * @param {*} weight
 */
     incr(key: any, options: any, weight: any): Promise<{
-        counter: Error | null;
-        dateEnd: any;
+        counter: [Error | null, any];
+        dateEnd: [Error | null, any];
     }>;
     /**
 * decrement
