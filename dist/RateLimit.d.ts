@@ -1,5 +1,4 @@
 import Store from './Store';
-import MemoryStore from './MemoryStore';
 import Koa = require('koa');
 declare class TimeType {
     ms?: number;
@@ -21,7 +20,7 @@ declare class Options {
     headers?: boolean;
     skipFailedRequests?: boolean;
     prefixKey?: string;
-    store?: MemoryStore;
+    store?: Store;
     keyGenerator?: (ctx: Koa.Context, next?: Koa.Next) => any;
     skip?: (ctx: Koa.Context, next?: Koa.Next) => any;
     getUserId?: (ctx: Koa.Context, next?: Koa.Next) => any;

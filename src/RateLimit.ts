@@ -21,7 +21,7 @@ class Options {
     headers?: boolean;
     skipFailedRequests?: boolean;
     prefixKey?: string;
-    store?: MemoryStore;
+    store?: Store;
     keyGenerator?: (ctx: Koa.Context, next?: Koa.Next) => any
     skip?: (ctx: Koa.Context, next?: Koa.Next) => any
     getUserId?: (ctx: Koa.Context, next?: Koa.Next) => any
