@@ -66,8 +66,9 @@ class RedisStore extends Store_1.default {
             dateEnd = Date.now() + options.interval;
             const seconds = Math.ceil(options.interval / 1000);
             replies = this._processReplies(replies);
+            console.log(replies);
             var ttl = this.setExpire(seconds, replies, key);
-            counter = ttl;
+            // counter = ttl
             // await this.client.setex(key, seconds, counter as any);
         }
         else {
