@@ -20,47 +20,44 @@ import Store from './Store';
 declare class RedisStore extends Store {
     client: Redis.Redis;
     constructor(config: Redis.RedisOptions);
-    _processReplies(replies: any[]): any[];
-    setExpire(expiryMs: number, replies: any[], rdskey: Redis.KeyType): any;
     /**
-* _hit
-* @access private
-* @param {*} key
-* @param {*} options
-* @param {*} weight
-*/
+     * _hit
+     *
+     * @author CaoMeiYouRen
+     * @date 2020-05-26
+     * @param {*} key
+     * @param {{ interval: number; }} options
+     * @param {*} weight
+     * @returns
+     */
     _hit(key: any, options: {
         interval: number;
-    }, weight: any): Promise<{
-        counter: [Error | null, any];
-        dateEnd: [Error | null, any];
-    }>;
+    }, weight: any): Promise<any>;
     /**
-* incr
-*
-* Override incr method from Store class
-* @param {*} key
-* @param {*} options
-* @param {*} weight
-*/
-    incr(key: any, options: any, weight: any): Promise<{
-        counter: [Error | null, any];
-        dateEnd: [Error | null, any];
-    }>;
+     *
+     *
+     * @author CaoMeiYouRen
+     * @date 2020-05-26
+     * @param {*} key
+     * @param {*} options
+     * @param {*} weight
+     * @returns
+     */
+    incr(key: any, options: any, weight: any): Promise<any>;
     /**
-* decrement
-*
-* Override decrement method from Store class
-* @param {*} key
-* @param {*} options
-* @param {*} weight
-*/
+    * decrement
+    *
+    * Override decrement method from Store class
+    * @param {*} key
+    * @param {*} options
+    * @param {*} weight
+    */
     decrement(key: any, options: any, weight: any): Promise<void>;
     /**
-* saveAbuse
-*
-* Override saveAbuse method from Store class
-*/
+    * saveAbuse
+    *
+    * Override saveAbuse method from Store class
+    */
     saveAbuse(): void;
 }
 export default RedisStore;
