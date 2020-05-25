@@ -21,12 +21,12 @@ declare class Options {
     skipFailedRequests?: boolean;
     prefixKey?: string;
     store?: MemoryStore;
-    keyGenerator?: any;
-    skip?: any;
-    getUserId?: any;
-    handler?: any;
-    onLimitReached?: any;
-    weight?: any;
+    keyGenerator?: (ctx: Koa.Context, next?: Koa.Next) => any;
+    skip?: (ctx: Koa.Context, next?: Koa.Next) => any;
+    getUserId?: (ctx: Koa.Context, next?: Koa.Next) => any;
+    handler?: (ctx: Koa.Context, next?: Koa.Next) => any;
+    onLimitReached?: (ctx: Koa.Context, next?: Koa.Next) => any;
+    weight?: (ctx: Koa.Context, next?: Koa.Next) => any;
     whitelist?: any[];
 }
 declare class RateLimit {
