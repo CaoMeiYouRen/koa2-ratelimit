@@ -59,6 +59,7 @@ class RedisStore extends Store_1.default {
 */
     async _hit(key, options, weight) {
         let replies = await this.client.multi().pttl(key).exec();
+        console.log(replies);
         let [counter, dateEnd] = replies;
         if (counter === null) {
             counter = weight;
