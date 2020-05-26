@@ -8,7 +8,6 @@ class TimeType {
 class Options {
 }
 let defaultOptions = {
-    // window, delay, and max apply per-key unless global is set to true
     interval: { min: 1 },
     delayAfter: 0,
     timeWait: { sec: 1 },
@@ -19,7 +18,6 @@ let defaultOptions = {
     skipFailedRequests: false,
     prefixKey: 'global',
     store: new MemoryStore_1.default(),
-    // redefin fonction
     keyGenerator: undefined,
     skip: undefined,
     getUserId: undefined,
@@ -45,11 +43,9 @@ class RateLimit {
         this.options = Object.assign({}, defaultOptions, options);
         this.options.interval = RateLimit.timeToMs(this.options.interval);
         this.options.timeWait = RateLimit.timeToMs(this.options.timeWait);
-        // store to use for persisting rate limit data
         if (this.options.store) {
             this.store = this.options.store;
         }
-        // ensure that the store extends Store class
         if (!(this.store instanceof Store_1.default)) {
             throw new Error('The store is not valid.');
         }

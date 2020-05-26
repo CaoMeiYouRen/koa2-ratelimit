@@ -111,7 +111,6 @@ class SequelizeStore extends Store_1.default {
     async _increment(table, where, nb = 1, field) {
         return table.update({ [field]: global['sequelize'].literal(`${field} + ${nb}`) }, { where });
     }
-    // remove all if time is passed
     async _removeAll(table) {
         const now = new Date();
         await table.destroy({
@@ -146,9 +145,7 @@ class SequelizeStore extends Store_1.default {
         const ratelimit = await table.findOne({ where: { key: options.key } });
         if (ratelimit) {
             const tableAbuse = await this._getTableAbuse();
-            // eslint-disable-next-line
             const date_end = ratelimit.date_end;
-            // create if not exist
             await tableAbuse
                 .findOrCreate({
                 where: { key: options.key, date_end },

@@ -18,7 +18,7 @@ class MemoryStore extends Store_1.default {
     }
     _resetAll() {
         const now = Date.now();
-        for (const key in Hits) { // eslint-disable-line
+        for (const key in Hits) {
             this._resetKey(key, now);
         }
     }

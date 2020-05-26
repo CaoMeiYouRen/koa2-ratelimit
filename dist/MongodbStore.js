@@ -88,7 +88,6 @@ class MongodbStore extends Store_1.default {
     async _increment(model, where, nb = 1, field) {
         return model.findOneAndUpdate(where, { $inc: { [field]: nb } });
     }
-    // remove all if time is passed
     async _removeAll() {
         await this.Ratelimits.remove({ dateEnd: { $lte: Date.now() } });
     }
@@ -116,9 +115,7 @@ class MongodbStore extends Store_1.default {
             key: options.key,
         }).exec();
         if (ratelimit) {
-            // eslint-disable-next-line
             const dateEnd = ratelimit.dateEnd;
-            // create if not exist
             await this.Abuse.findOrCreate({
                 where: { key: options.key, dateEnd },
                 defaults: {
