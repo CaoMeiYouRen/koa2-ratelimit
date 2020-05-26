@@ -41,15 +41,21 @@ class RedisStore extends Store {
     async _hit(key: any, options: { interval: number; }, weight: any) {
         let [replies] = await this.client.multi().pttl(key).exec();
         let [err, ttl] = replies;
-        let seconds = options.interval
+        let seconds = options.interval;
+        let counter = 0
         if (ttl <= 0) {
             await this.client.set(key, weight, 'PX', seconds);
-            ttl = seconds
-        } else {
-            await this.client.incrby(key, weight);
+            ttl = seconds;
+            counter = weight
+        }
+        else {
+            counter = await this.client.incrby(key, weight);
             await this.client.pexpire(key, ttl);
         }
-        return ttl
+        return {
+            counter,
+            dateEnd: Date.now() + ttl
+        }
     }
 
     /**

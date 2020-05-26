@@ -39,15 +39,20 @@ class RedisStore extends Store_1.default {
         let [replies] = await this.client.multi().pttl(key).exec();
         let [err, ttl] = replies;
         let seconds = options.interval;
+        let counter = 0;
         if (ttl <= 0) {
             await this.client.set(key, weight, 'PX', seconds);
             ttl = seconds;
+            counter = weight;
         }
         else {
-            await this.client.incrby(key, weight);
+            counter = await this.client.incrby(key, weight);
             await this.client.pexpire(key, ttl);
         }
-        return ttl;
+        return {
+            counter,
+            dateEnd: Date.now() + ttl
+        };
     }
     /**
      *
