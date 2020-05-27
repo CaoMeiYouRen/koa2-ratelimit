@@ -1,6 +1,6 @@
 {
   "name": "koa2-ratelimit",
-  "author": "YSO CORP",
+  "author": "CaoMeiYouRen",
   "version": "0.9.1",
   "description": "IP rate-limiting middleware for Koajs 2. Use to limit repeated requests to APIs and/or endpoints such as password reset.",
   "main": "dist/index",
@@ -11,19 +11,13 @@
   "engines": {
     "node": ">=7.10.1"
   },
-  "people": {
-    "name": "YSO CORP",
-    "email": "contact@ysocorp.com",
-    "url": "http://ysocorp.com"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ysocorp/koa2-ratelimit"
+    "url": "https://github.com/CaoMeiYouRen/koa2-ratelimit"
   },
   "dependencies": {
     "ioredis": "^4.17.1",
     "mongoose": "^5.5.13",
-    "promise-redis": "0.0.5",
     "sequelize": "^5.8.7"
   },
   "devDependencies": {

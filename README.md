@@ -1,11 +1,37 @@
 #  Koajs 2 Rate Limit (Bruteforce)
 
-[![Build Status](https://secure.travis-ci.org/ysocorp/koa2-ratelimit.png?branch=master "Test")](http://travis-ci.org/ysocorp/koa2-ratelimit)
-[![NPM version](http://badge.fury.io/js/koa2-ratelimit.png)](https://npmjs.org/package/koa2-ratelimit "View this project on NPM")
+Fork from https://github.com/ysocorp/koa2-ratelimit
 
-Rate-limiting middleware for Koa2 with `async` `await`. Use to limit repeated requests to APIs and/or endpoints such as password reset.
+use typescript 
 
-Note: This module is based on [express-rate-limit](https://github.com/nfriedly/express-rate-limit) and adapted to koa2 ES6 with the `async` `await` capabilities.
+## BREAKING CHANGE
+
+**old**
+
+```js
+const RateLimit = require('koa2-ratelimit').RateLimit;
+const Stores = require('koa2-ratelimit').Stores;
+const {
+    Memory,
+    Sequelize,
+    Mongodb,
+    Redis,
+    Store,
+} = Stores;
+```
+
+**now**
+
+```ts
+import {  
+    RateLimit,
+    MemoryStore,
+    SequelizeStore,
+    MongodbStore,
+    RedisStore,
+    Store,
+} from 'koa2-ratelimit'
+```
 
 ## Summary
 
@@ -21,7 +47,7 @@ Note: This module is based on [express-rate-limit](https://github.com/nfriedly/e
 ## Install
 
 ```sh
-$ npm install --save koa2-ratelimit
+$ npm install --save ts-koa2-ratelimit
 ```
 
 ## Usage
@@ -29,7 +55,7 @@ $ npm install --save koa2-ratelimit
 For an API-only server where the rate-limiter should be applied to all requests:
 
 ```js
-const RateLimit = require('koa2-ratelimit').RateLimit;
+import { RateLimit } from 'koa2-ratelimit'
 
 const limiter = RateLimit.middleware({
   interval: { min: 15 }, // 15 minutes = 15*60*1000
@@ -43,7 +69,7 @@ app.use(limiter);
 Create multiple instances to apply different rules to different routes:
 
 ```js
-const RateLimit = require('koa2-ratelimit').RateLimit;
+import { RateLimit } from 'koa2-ratelimit'
 const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
@@ -78,7 +104,7 @@ app.use(router.middleware())
 Set default options to all your middleware:
 
 ```js
-const RateLimit = require('koa2-ratelimit').RateLimit;
+import { RateLimit } from 'koa2-ratelimit'
 
 RateLimit.defaultOptions({
     message: 'Get out.',
@@ -99,12 +125,11 @@ const createAccountLimiter = RateLimit.middleware({
 ### Use with RedisStore 
 
 ```js
-const RateLimit = require('koa2-ratelimit').RateLimit;
-const Stores = require('koa2-ratelimit').Stores;
+import { RateLimit, RedisStore } from 'koa2-ratelimit'
 
 RateLimit.defaultOptions({
     message: 'Get out.',
-    store: new Stores.Redis({
+    store: new RedisStore({
         host: 'redis_host',
         port: 'redis_port',
         password: 'redis_password',
@@ -297,9 +322,9 @@ Examples
         timeWait: 2000, // 2000 ms = 2 sec
     });
 ```
-    
+
 
 ## License
 
-MIT © [YSO Corp](http://ysocorp.com/)
+MIT © [CaoMeiYouRen](https://github.com/CaoMeiYouRen/)
 
